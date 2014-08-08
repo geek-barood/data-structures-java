@@ -2,7 +2,7 @@ package com.aniruddha.Tree;
 
 public class TreeNode<T> {
 	private TreeNode left, right;
-	public T t;
+	private T t;
 	
 	public TreeNode() {
 		
@@ -26,7 +26,7 @@ public class TreeNode<T> {
 		this.left = new TreeNode(t);
 	}
 	
-	public void addRight(T t) {
+	public <T extends Comparable<T>>void addRight(T t) {
 		this.right = new TreeNode(t);
 	}
 }
