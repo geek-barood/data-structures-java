@@ -2,7 +2,7 @@ package com.aniruddha.Tree;
 
 public class TreeNode<T> {
 	private TreeNode left, right;
-	public T t;
+	private T t;
 	
 	public TreeNode() {
 		
