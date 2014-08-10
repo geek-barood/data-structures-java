@@ -1,19 +1,23 @@
 package com.aniruddha.BinTree;
 
-import com.aniruddha.Tree.*;
-public class BinaryTree<T> {
-	private TreeNode<T> root;
+import java.util.ArrayList;
 
-	private void inorder(TreeNode<T> root) {
-		if(root == null) return;
+import com.aniruddha.Tree.TreeNode;
 
-		inorder(root.getLeft());
-		System.out.println(root.getData());
-		inorder(root.getRight());
+public class BinaryTree<T extends Comparable<T>> {
+	protected TreeNode<T> root;
+
+	private void inorder(TreeNode<T> node) {
+		if(node == null) return;
+		else {
+			inorder(node.getLeft());
+            System.out.println(node.getData());
+            inorder(node.getRight());
+		}
 	}
 
 	public BinaryTree(T t) {
-		this.root = new TreeNode(t);
+		root = new TreeNode<T>(t);
 	}
 
 	public TreeNode<T> getLeft() {
@@ -32,17 +36,9 @@ public class BinaryTree<T> {
 		root.addRight(t);
 	}
 
-	public void TraverseInorder() {
-		if(this.root == null) return;
-		inorder(this.root);
-	}
-	
-	public static void main(String args[]) {
-		BinaryTree<String> tree = new BinaryTree<String>("Root_node");
-		tree.addLeft("Work");
-		tree.addRight("Hard");
-		tree.getRight().addLeft("Very");
-		tree.TraverseInorder();
+	public void traverseInorder() {
+		if(root == null) return;
+		inorder(root);
 	}
 	
 }
