@@ -1,16 +1,15 @@
 package com.aniruddha.BinTree;
 import com.aniruddha.Tree.*;
 
-public class BST extends BinaryTree {
+public class BST<T extends Comparable<T>> extends BinaryTree<T> {
 
-	public BST(Comparable t) {
+	public BST(T t) {
 		super(t);
-		// TODO Auto-generated constructor stub
 	}
 	
-	public void add(Comparable t) {
-		TreeNode node = root;
-		TreeNode parent = null;
+	public void add(T t) {
+		TreeNode<T> node = root;
+		TreeNode<T> parent = null;
 		while(true) {
 			if(node == null) {
 				break;
@@ -31,24 +30,24 @@ public class BST extends BinaryTree {
 		}
 	}
 	
-	public TreeNode getMin() {
-		TreeNode node = root;
+	public TreeNode<T> getMin() {
+		TreeNode<T> node = root;
 		while(node.getLeft() != null) {
 			node = node.getLeft();
 		}
 		return node;
 	}
 	
-	public TreeNode getMax() {
-		TreeNode node = root;
+	public TreeNode<T> getMax() {
+		TreeNode<T> node = root;
 		while(node.getRight() != null) {
 			node = node.getRight();
 		}
 		return node;
 	}
 	
-	public TreeNode find(Comparable t) {
-		TreeNode node = root;
+	public TreeNode<T> find(T t) {
+		TreeNode<T> node = root;
 		while(node!=null && !t.equals(node.getData())) {
 			if(t.compareTo(node.getData()) >= 0) {
 				node = node.getRight();
@@ -59,19 +58,44 @@ public class BST extends BinaryTree {
 		return node;
 	}
 	
-	public TreeNode findParent(Comparable t) {
-		TreeNode node = root;
-		while(!node.isLeaf() && (node.getLeft().equals(t) || node.getRight().equals(t))) {
-			if(node.getLeft().getData().compareTo(t) >= 0) {
-				node = node.getRight();
-			} else {
-				node = node.getLeft(); //check here
-			}
+	public TreeNode<T> findParent(TreeNode<T> t) {
+		TreeNode<T> parent = null;
+		TreeNode<T> node = root;
+		
+		// check if given node is root, return null if it is the case
+		if (t.getData().equals(root.getData())) {
+			return parent; // check here
 		}
-		return node;
+		
+		while (true) {
+			if (node.getData().equals(t.getData())) 
+				break;
+			
+			if (node.hasLeft()) {
+				if (node.getLeft().getData().compareTo(t.getData()) >= 0) {
+					parent = node;
+					node = node.getLeft();
+				}
+			}
+			
+			if(node.hasRight()) {
+				if (node.getRight().getData().compareTo(t.getData()) < 0) {
+					parent = node;
+					node = node.getRight();
+				}
+			}
+			
+		}
+		
+		if (node.isLeaf() && !node.equals(t)) {
+			return null;
+		}
+		return parent;
+		
 	}
-	public void remove(Comparable t) {
-		TreeNode node = find(t);
+
+	public void remove(T t) {
+		TreeNode<T> node = find(t);
 		if(node != null) {
 			if(node.getLeft() != null && node.getRight() != null) {
 			// if it is an internal node having 2 children
@@ -79,15 +103,18 @@ public class BST extends BinaryTree {
 			}
 		}
 	}
+
 	public static void main(String args[]) {
-		BST root = new BST("Hello");
+		BST<String> root = new BST<>("Hello");
 		root.add("Mr.");
 		root.add("Record");
 		root.add("Aniruddha");
 		root.traverseInorder();
 		System.out.println(root.getMax().getData());
 		System.out.println(root.getMin().getData());
-		System.out.println(root.find("Mr.sf"));
+		TreeNode<String> node = root.find("Mr.sf");
+		TreeNode<String> parent = root.findParent(node);
+		System.out.println(parent);
 	}
 
 }

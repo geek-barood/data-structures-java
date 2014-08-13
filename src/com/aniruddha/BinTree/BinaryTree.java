@@ -1,10 +1,8 @@
 package com.aniruddha.BinTree;
 
-import java.util.ArrayList;
-
 import com.aniruddha.Tree.TreeNode;
 
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T> {
 	protected TreeNode<T> root;
 
 	private void inorder(TreeNode<T> node) {

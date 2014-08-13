@@ -1,7 +1,7 @@
 package com.aniruddha.Tree;
 
-public class TreeNode<T extends Comparable<T>> {
-	private TreeNode left, right;
+public class TreeNode<T> {
+	private TreeNode<T> left, right;
 	private T t;
 	
 	public TreeNode() {
@@ -12,10 +12,16 @@ public class TreeNode<T extends Comparable<T>> {
 		this.left = null;
 		this.right = null;
 	}
-	public TreeNode getLeft() {
+	public boolean hasLeft() {
+		return this.left != null;
+	}
+	public boolean hasRight() {
+		return this.right != null;
+	}
+	public TreeNode<T> getLeft() {
 		return left;
 	}
-	public TreeNode getRight() {
+	public TreeNode<T> getRight() {
 		return right;
 	}
 	public T getData() {
@@ -23,11 +29,11 @@ public class TreeNode<T extends Comparable<T>> {
 	}
 	
 	public void addLeft(T t) {
-		this.left = new TreeNode(t);
+		this.left = new TreeNode<T>(t);
 	}
 	
-	public <T extends Comparable<T>>void addRight(T t) {
-		this.right = new TreeNode(t);
+	public void addRight(T t) {
+		this.right = new TreeNode<T>(t);
 	}
 	
 	public boolean isLeaf() {
